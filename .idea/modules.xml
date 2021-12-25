@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/String.iml" filepath="$PROJECT_DIR$/String.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StringUtils/StringUtils.iml" filepath="$PROJECT_DIR$/StringUtils/StringUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StringUtils-test/StringUtils-test.iml" filepath="$PROJECT_DIR$/StringUtils-test/StringUtils-test.iml" />
+    </modules>
+  </component>
+</project>
