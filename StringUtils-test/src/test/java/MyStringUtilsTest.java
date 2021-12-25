@@ -18,21 +18,25 @@ public class MyStringUtilsTest {
     public void testContainsCharacterMyString(){
         MyString myString = new MyString("Hello, world");
         Assertions.assertTrue(MyStringUtils.contains(myString,'H'));
+        Assertions.assertFalse(MyStringUtils.contains(myString,';'));
     }
     @Test
     public void testContainsStringMyString(){
         MyString myString = new MyString("Hello, world");
         Assertions.assertTrue(MyStringUtils.contains(myString,new MyString("ello, wo")));
+        Assertions.assertFalse(MyStringUtils.contains(myString,new MyString("ello, woa")));
     }
     @Test
     public void testIndexOfCharacterMyString(){
         MyString myString = new MyString("Hello, world");
         Assertions.assertEquals(MyStringUtils.indexOf(myString,'l'),2);
+        Assertions.assertEquals(MyStringUtils.indexOf(myString,';'),-1);
     }
     @Test
     public void testIndexOfStringMyString(){
         MyString myString = new MyString("Hello, world");
         Assertions.assertEquals(MyStringUtils.indexOf(myString,new MyString("ello, wo")),1);
+        Assertions.assertEquals(MyStringUtils.indexOf(myString,new MyString("ello, wo ")),-1);
     }
     @Test
     public void testEquals(){

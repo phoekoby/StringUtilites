@@ -4,11 +4,6 @@ import ru.vsu.cs.string.utils.StringUtils;
 
     public class StringUtilsTest {
         @Test
-        public void testCreatingString(){
-            String String = "Hello, world";
-            Assertions.assertEquals("Hello, world", String);
-        }
-        @Test
         public void testCreatingEmptyString(){
             String String = "";
             Assertions.assertEquals("", String);
