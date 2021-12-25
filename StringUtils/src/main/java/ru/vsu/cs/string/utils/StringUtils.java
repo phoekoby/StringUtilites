@@ -7,27 +7,6 @@ import java.util.List;
 public class StringUtils {
     private StringUtils() {
     }
-
-    public static int indexOf(String string, String findingString) {
-        if (string.length() == 0 || findingString.length() == 0 || string.length() < findingString.length()) {
-            return -1;
-        }
-        return unsafeIndexOf(string, findingString, 0);
-    }
-
-    public static int indexOf(String string, char c) {
-        if (string.length() == 0 || !contains(string, c)) {
-            return -1;
-        }
-        byte[] bytes = string.getBytes();
-        for (int i = 0; i < bytes.length; i++) {
-            if (bytes[i] == c) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public static int indexOf(String string, char c, int start) {
         if (string.length() == 0 || !contains(string, c) || start < 0 || start >= string.getBytes().length) {
             return -1;
@@ -39,6 +18,17 @@ public class StringUtils {
             }
         }
         return -1;
+    }
+
+    public static int indexOf(String string, String findingString) {
+        if (string.length() == 0 || findingString.length() == 0 || string.length() < findingString.length()) {
+            return -1;
+        }
+        return unsafeIndexOf(string, findingString, 0);
+    }
+
+    public static int indexOf(String string, char c) {
+        return indexOf(string,c,0);
     }
 
     public static int indexOf(String string, String findingString, int start) {
@@ -59,7 +49,7 @@ public class StringUtils {
         for (int i = start; i <= max; i++) {
 
             if (value[i] != first) {
-                while (++i <= max && value[i] != first) ;
+                while (++i <= max && value[i] != first);
             }
             if (i <= max) {
                 int j = i + 1;
@@ -90,10 +80,10 @@ public class StringUtils {
         if (String1.length() != String2.length()) {
             return false;
         }
-        byte[] firstStringbytes = String1.getBytes();
-        byte[] secondStringbytes = String2.getBytes();
-        for (int i = 0; i < firstStringbytes.length; i++) {
-            if (secondStringbytes[i] != firstStringbytes[i]) {
+        byte[] firstStringBytes = String1.getBytes();
+        byte[] secondStringBytes = String2.getBytes();
+        for (int i = 0; i < firstStringBytes.length; i++) {
+            if (secondStringBytes[i] != firstStringBytes[i]) {
                 return false;
             }
         }
@@ -136,24 +126,14 @@ public class StringUtils {
         if (strings.length <= 1) {
             return strings[0];
         }
-        List<Byte> bytes = new ArrayList<>();
-        for (int i = 0; i < strings.length - 1; i++) {
-            byte[] strbytes = strings[i].getBytes();
-            for (byte c : strbytes) {
-                bytes.add(c);
-            }
-            for (byte c : regex.getBytes()) {
-                bytes.add(c);
-            }
+        List<String> stringsToConcatenate = new ArrayList<>();
+        for(int i = 0; i < strings.length-1;i++){
+            stringsToConcatenate.add(strings[i]);
+            stringsToConcatenate.add(regex);
         }
-        for (byte c : strings[strings.length - 1].getBytes()) {
-            bytes.add(c);
-        }
-        byte[] result = new byte[bytes.size()];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = bytes.get(i);
-        }
-        return new String(result);
+        stringsToConcatenate.add(strings[strings.length-1]);
+        String[] result = new String[stringsToConcatenate.size()];
+        return concatenate(stringsToConcatenate.toArray(result));
     }
 
     public static String[] split(String String, String regex) {
@@ -171,7 +151,7 @@ public class StringUtils {
                 break;
             }
         }
-        if (strings.get(strings.size() - 1).equals(new String(""))) {
+        if (strings.get(strings.size() - 1).equals("")) {
             strings.remove(strings.size() - 1);
         }
         String[] result = new String[strings.size()];

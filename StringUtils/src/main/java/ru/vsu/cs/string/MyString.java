@@ -43,9 +43,7 @@ public class MyString implements CharSequence, Comparable<MyString> {
             throw new StringException("Incorrect indexes");
         }
         char[] newChars = new char[end - start + 1];
-        for (int i = start; i <= end; i++) {
-            newChars[i - start] = this.chars[i];
-        }
+        if (end + 1 - start >= 0) System.arraycopy(this.chars, start, newChars, 0, end + 1 - start);
         return new MyString(newChars);
     }
 

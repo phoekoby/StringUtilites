@@ -18,16 +18,7 @@ public class MyStringUtils {
     }
 
     public static int indexOf(MyString string, char c) {
-        if (string.length() == 0 || !contains(string, c)) {
-            return -1;
-        }
-        char[] chars = string.getChars();
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == c) {
-                return i;
-            }
-        }
-        return -1;
+        return indexOf(string,c,0);
     }
 
     public static int indexOf(MyString string, char c, int start) {
@@ -47,7 +38,7 @@ public class MyStringUtils {
         if (string.length() == 0 || findingString.length() == 0 || string.length() < findingString.length()) {
             return -1;
         }
-        if (start < 0 || start > string.length()) {
+        if (start < 0 || start >= string.length()) {
             return -1;
         }
         return unsafeIndexOf(string, findingString, start);
@@ -140,24 +131,14 @@ public class MyStringUtils {
         if(strings.length<=1){
             return strings[0];
         }
-        List<Character> chars = new ArrayList<>();
-        for(int i =0; i<strings.length-1;i++){
-            char[] strChars = strings[i].getChars();
-            for(char c: strChars){
-                chars.add(c);
-            }
-            for(char c: regex.getChars()){
-                chars.add(c);
-            }
+        List<MyString> stringsToConcatenate = new ArrayList<>();
+        for(int i = 0; i < strings.length-1;i++){
+            stringsToConcatenate.add(strings[i]);
+            stringsToConcatenate.add(regex);
         }
-        for(char c:  strings[strings.length-1].getChars()){
-            chars.add(c);
-        }
-        char[] result = new char[chars.size()];
-        for(int i =0; i < result.length;i++){
-            result[i] = chars.get(i);
-        }
-        return new MyString(result);
+        stringsToConcatenate.add(strings[strings.length-1]);
+        MyString[] result = new MyString[stringsToConcatenate.size()];
+        return concatenate(stringsToConcatenate.toArray(result));
     }
 
     public static MyString[] split(MyString myString, MyString regex){
